@@ -1,0 +1,55 @@
+</br>
+<div class = "container" ng-controller="PostsCtrl">
+    <%= button_to "Add", new_post_path, :method => :get, :class => "btn btn-primary" %>
+    </br>
+    </br>
+    <div class = "pull-right">
+        <b>Search:</b> <input ng-model="searchText">
+    </div>
+    
+    </br>
+    </br>
+    
+    <table class = "table table-hover table-striped">
+      <thead>
+        <tr>
+            <th><a href="" ng-click="predicate = 'title'; reverse=false">Title</a>
+            (<a href="" ng-click="predicate = '-title'; reverse=false">^</a>)</th>
+            <th><a href="" ng-click="predicate = 'userName'; reverse=false">User</a>
+            (<a href="" ng-click="predicate = '-userName'; reverse=false">^</a>)</th>
+            <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="post in posts | filter:searchText | orderBy:predicate:reverse">
+            <td>{{post.title}}</td>
+            <td><a href ="/profile?id={{post.user_id}}">{{post.userName}}</a></td>
+            <td>
+                <button class = "btn btn-danger" ng-click ="destroy($index)" confirmation-needed="Really Delete?">Delete</button>
+                <a class = "btn btn-primary" href ="/posts/{{post.id}}/edit">Edit</a>
+                <button class="btn btn-success" data-toggle="modal" data-target="#modalPost" ng-click ="viewPost(post)">
+                    View
+                </button>
+            </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <!-- Modal -->
+<div class="modal" id="modalPost" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">{{post.title}}</h4>
+      </div>
+      <div class="modal-body">
+        {{post.content}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

@@ -1,0 +1,83 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ */
+ 
+
+    a{
+        cursor:pointer;
+    }
+
+    .jumbotron h2{
+        color:#428BCA;
+        
+    }
+    
+    h2, h3{
+    }
+    
+    .jumbotron{
+       background-color:white;
+       border-style:solid;
+       border-color:#428BCA;
+    }
+    
+
+    #navlogo{
+    }
+
+    #logo{
+        background-color:white;
+        padding-right:5px;
+        padding-left:5px;
+        padding-top:30px;
+        font-weight:bold;
+    }
+
+    #profile_name{
+        font-weight:bold;
+        
+    }
+
+    .table > thead > tr > th{
+        color:black;
+        font-weight:bold;
+    }
+
+    #view_table > tbody > tr > td {
+    padding: 2px !important;
+    font-size:10px;
+    border-top: none !important;
+    }
+
+    .clip-circle{
+      background:url(URL-of-image) no-repeat;
+      background-size:150px 70px;
+      background-position:0px 0px;
+      height:150px;
+      width:110px;
+      border-radius:60%;
+      overflow:hidden;
+      margin:auto;
+    }
+
+    .navbar{
+      background-color:#357ebd;
+    }
+
+    .navbar a{
+      color:white;
+    }
+
+    .nav > li > a:hover{
+      background-color:#2A6597;
+    }

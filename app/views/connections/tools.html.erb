@@ -1,0 +1,56 @@
+<div class = "container" ng-controller="ToolsCtrl">
+    <div class = "row">
+        <div>
+            <h4><b>Search for user like on a specific fb page</b></h4>
+            </br>
+            <table class = "table">
+                <tbody>
+                    <!--<tr>
+                        <td>
+                            Enter Facebook User Id:
+                        </td>
+                        <td>
+                            <input ng-model="fb_user_id"></input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Enter Facebook Password:
+                        </td>
+                        <td>
+                            <input ng-model="fb_user_password" type="password" size="25"></input>
+                        </td>
+                    </tr>-->
+                    <tr>
+                        <td>
+                            Enter Page Id:
+                        </td>
+                        <td>
+                            <input ng-model="fb_page_id"></input>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button class = "btn btn-primary" ng-click="search_fb_like()">Search</button>
+            <button class = "btn btn-primary" ng-click="search_fb_users()">Click</button>
+        </div>
+    </div>
+    <div class = "row">
+        </br>
+        </br>
+        <table class = "table table-bordered">
+            <tbody>
+                <tr ng-repeat="user in social_data">
+                    <td>{{user}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="throbber" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content" style="padding:15px;">
+              {{modal_text}}<span id="ellipse"></span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,174 @@
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+  google.load("visualization", "1.1", {packages:["bar", "corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Name', 'Total Money Earned From Big Pharma ($)'],
+          <% @payments.each_with_index do |i, index| %>
+          ['Dr. <%= i[1].capitalize %> <%= i[2].capitalize %>', <%= i[3].to_f %>],
+          		<% if index > 8 %>
+          			<% break %>
+          		<% end %>
+          <% end %>
+        ]);
+
+        var formatter = new google.visualization.NumberFormat(
+	      {fractionDigits: 2, prefix: '$'});
+	  	formatter.format(data, 1);
+
+        var options = {
+          chart: {
+            title: "California's Top 10 Doctors who Earn the Most Money From Big Pharmaceutical Companies",
+            subtitle: 'Since 9/30/2014 - Present',
+            legend: {position: 'none'}
+            
+          },
+          legend: {position: 'none'},
+          hAxis: {slantedText:true, slantedTextAngle:30 },
+          series: {
+            0: { axis: 'total' }, // Bind series 0 to an axis named 'distance'.
+          },
+          axes: {
+            y: {
+              total: {label: 'Total Earned in Dollars ($)'}, // Left y-axis.
+            }
+          }
+        };
+
+         var array = [
+         <% @payments.each_with_index do |i, index| %>
+          '<%= i[0] %>' ,
+              <% if index > 8 %>
+                <% break %>
+              <% end %>
+          <% end %>
+          ];
+
+        var chart = new google.charts.Bar(document.getElementById('chart_div'));
+        /*function selectHandler() {
+          var selectedItem = chart.getSelection()[0];
+          if (selectedItem) {
+            window.open("https://openpaymentsdata.cms.gov/physician/"+array[selectedItem.row],'_blank');
+          }
+        }*/
+
+        // Listen for the 'select' event, and call my function selectHandler() when
+        // the user selects something on the chart.
+        //google.visualization.events.addListener(chart, 'select', selectHandler);
+
+
+
+        chart.draw(data, options);
+      }
+
+
+      //google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawHistogram);
+      function drawHistogram() {
+        var data = google.visualization.arrayToDataTable([
+          ['Doctor', 'Total'],
+          <% @payments.each_with_index do |i, index| %>
+          ['Dr. <%= i[1].capitalize %> <%= i[2].capitalize %>', <%= i[3].to_f %>],
+              <% if index > 1000 %>
+                <% break %>
+              <% end %>
+          <% end %>
+        ]);
+
+        var options = {
+          title: 'Lengths of dinosaurs, in meters',
+          legend: { position: 'none' },
+        };
+
+        var chart = new google.visualization.Histogram(document.getElementById('histogram'));
+        //chart.draw(data, options);
+      }
+
+</script>
+
+<style>
+.container .jumbotron {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top:20px;
+    padding-bottom:20px;
+}
+</style>
+<div class = "container"  ng-controller="IndexCtrl">
+    <div class = "row">
+        <div class = "col-md-12">
+          <div class="alert alert-info" role="alert">
+                <b>Thanks to the Affordable Health Care Act, we have access to how much money from big pharmaceutical companies is being injected into our Doctors pockets!</b>
+                </br>
+                </br>
+                The following numbers were generated from 12/19/14 Complete Open Payments Datasets, which can be found <a href="http://www.cms.gov/OpenPayments/Explore-the-Data/Dataset-Downloads.html">here!</a> It is a complete set of all data from both 9/30/14 and 12/19/14 data publications, which includes the initial data publication, as well as additional records included as a results of the data refresh. Records can be distinguished by the Payment_Publication_Date, which will be either 9/30/14 or 12/19/14.  
+                </br>
+                </br>
+                <b><a href="https://openpaymentsdata.cms.gov/">For more advanced searches, Click Here!</a></b>
+          </div>
+        </div>
+    </div>
+    <div class = "row">
+        <div class = "col-md-12">
+            </br>
+            </br>
+            <div id="chart_div" style="width: 100%; height: 500px;"></div>
+            <!--<div id="histogram" style="width: 100%; height: 500px;"></div>-->
+        </div>
+    </div>
+    <div class = "row">
+        <div class = "col-md-6">
+            </br>
+            </br>
+            <div class="jumbotron">
+              <h3><b>Total ($) Amount Received by CA Doctors</b></h3>
+              <p><%= number_to_currency(@sum) %> since 9/30/2014!</p>
+            </div>
+        </div>
+    </div>
+    <div class = "row">
+        <div class = "col-md-12">
+            <h3 style="color:#357ebd"><b>California's Top 100 Big Pharma Doctors</b></br>
+              <small>Doctors who got money from Big Pharmaceutical Companies!</small>
+            </h3>
+            </br>
+            <table class = "table">
+            	<thead>
+            		<tr>
+            			<th>Rank</th>
+            			<th>Name (<i>Click to view Individual Transactions!</i>)</th>
+            			<th>Total Money Received from Big Pharma</th>
+                  <th>Business Address</th>
+            			<th>Google them!</th>
+            		</tr>
+            	</thead> 
+            	<tbody>
+            		<% @payments.each_with_index do |i, index| %>
+                      <tr>
+                      	<td>
+            				<%= index + 1 %>
+            			</td>
+            			<td>
+            				<a href="https://openpaymentsdata.cms.gov/physician/<%= i[0]%>">Dr. <%= i[1].capitalize %> <%= i[2].capitalize %></a>
+            			</td>
+            			<td>
+            				<%= number_to_currency(i[3].to_f) %>
+            			</td>
+                  <td>
+                      <%= i[4].split.map(&:capitalize).join(' ') %>, <%= i[5].split.map(&:capitalize).join(' ') %>
+                  </td>
+            			<td>
+            				<a target="_blank" href="https://www.google.com/?gws_rd=ssl#q=Dr.+<%= i[1].capitalize %>+<%= i[2].capitalize %>+<%= i[4].split.map(&:capitalize).join(' ') %>+<%= i[5].split.map(&:capitalize).join(' ') %>"
+            					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            				</a>
+            			</td>
+                  		<% if index + 1 > 99 %>
+                  			<% break %>
+                  		<% end %>
+                    <% end %>
+                </tbody>
+            </table>
+		    </div>
+    </div>
+</div>

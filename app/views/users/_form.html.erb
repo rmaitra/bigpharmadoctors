@@ -1,0 +1,36 @@
+<%= form_for(@user) do |f| %>
+        
+        <table class = "table">
+            <thead>
+                <tr>
+                    <th><%= f.label :name %></th>
+                    <th><%= f.label :email %></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><%= f.text_field :name %></td>
+                    <td><%= f.text_field :email %></td>
+                </tr>
+            <tbody>
+        </table>
+        
+        <table class = "table">
+            <thead>
+                <tr>
+                    <th><%= f.label :password %></th>
+                    <th><%= f.label :password_confirmation %></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><%= f.password_field :password %></td>
+                    <td><%= f.password_field :password_confirmation %></td>
+                </tr>
+            <tbody>
+        </table>
+        
+            
+        <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
+        
+    <% end %>
