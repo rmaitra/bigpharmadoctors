@@ -126,6 +126,14 @@
               <p><%= number_to_currency(@sum) %> since 9/30/2014!</p>
             </div>
         </div>
+        <div class = "col-md-6">
+            </br>
+            </br>
+            <div class="jumbotron">
+              <h3><b>Number of CA Doctors that have taken $</b></h3>
+              <p><%= number_with_delimiter(@payments.length) %></p>
+            </div>
+        </div>
     </div>
     <div class = "row">
         <div class = "col-md-12">
