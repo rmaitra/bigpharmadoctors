@@ -46,16 +46,16 @@
           ];
 
         var chart = new google.charts.Bar(document.getElementById('chart_div'));
-        /*function selectHandler() {
+        function selectHandler() {
           var selectedItem = chart.getSelection()[0];
           if (selectedItem) {
-            window.open("https://openpaymentsdata.cms.gov/physician/"+array[selectedItem.row],'_blank');
+            window.open("/physician?id="+array[selectedItem.row],'_blank');
           }
-        }*/
+        }
 
         // Listen for the 'select' event, and call my function selectHandler() when
         // the user selects something on the chart.
-        //google.visualization.events.addListener(chart, 'select', selectHandler);
+        google.visualization.events.addListener(chart, 'select', selectHandler);
 
 
 
@@ -148,7 +148,7 @@
             	<thead>
             		<tr>
             			<th>Rank</th>
-            			<th>Name (<i>Click to view Individual Transactions!</i>)</th>
+            			<th>Name (<i>Click to view their Top 100 profile!</i>)</th>
             			<th>Total Money Received from Big Pharma</th>
                   <th>Business Address</th>
                   <th>City</th>

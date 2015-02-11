@@ -56,6 +56,8 @@
 <div class = "container">
 	<div class = "row">
 		<div class = "col-md-12">
+			<div class="fb-share-button" data-href="http://bigpharmadoctors.herokuapp.com/?id=<%= @doc[0]['physician_profile_id'] %>" data-layout="button"></div>
+			</br>
 			<h3 style="color:#357ebd"><b><%= @name %></b></br>
               <small><%= @address %></small>,
               <small><%= @city.split.map(&:capitalize).join(' ') %></small></br>
