@@ -5,7 +5,7 @@
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['Name', 'Total Money Earned From Big Pharma ($)'],
-          <% @payments.each_with_index do |i, index| %>
+          <% @top_ten.each_with_index do |i, index| %>
           ['Dr. <%= i[1].capitalize %> <%= i[2].capitalize %>', <%= i[3].to_f %>],
           		<% if index > 8 %>
           			<% break %>
@@ -147,11 +147,11 @@
             <table class = "table">
             	<thead>
             		<tr>
-            			<th>Rank</th>
+            			<th><a href="/"> Rank</a></th>
             			<th>Name (<i>Click to view their Top 100 profile!</i>)</th>
             			<th>Total Money Received from Big Pharma</th>
                   <th>Business Address</th>
-                  <th>City</th>
+                  <th><%= sortable "City" %></th>
             			<th>Google them!</th>
             		</tr>
             	</thead> 
@@ -159,26 +159,26 @@
             		<% @payments.each_with_index do |i, index| %>
                       <tr>
                       	<td>
-            				<%= index + 1 %>
-            			</td>
-            			<td>
-            				<!--<a href="https://openpaymentsdata.cms.gov/physician/<%= i[0]%>">Dr. <%= i[1].capitalize %> <%= i[2].capitalize %></a>-->
-                    <a href="/physician?id=<%= i[0]%>">Dr. <%= i[1].capitalize %> <%= i[2].capitalize %></a>
-            			</td>
-            			<td>
-            				<%= number_to_currency(i[3].to_f) %>
-            			</td>
-                  <td>
-                      <%= i[4].split.map(&:capitalize).join(' ') %>
-                  </td>
-                  <td>
-                      <%= i[5].split.map(&:capitalize).join(' ') %>
-                  </td>
-            			<td>
-            				<a target="_blank" href="https://www.google.com/?gws_rd=ssl#q=Dr.+<%= i[1].capitalize %>+<%= i[2].capitalize %>+<%= i[4].split.map(&:capitalize).join(' ') %>+<%= i[5].split.map(&:capitalize).join(' ') %>"
-            					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-            				</a>
-            			</td>
+                  				<%= i[6] %>
+                  			</td>
+                  			<td>
+                  				<!--<a href="https://openpaymentsdata.cms.gov/physician/<%= i[0]%>">Dr. <%= i[1].capitalize %> <%= i[2].capitalize %></a>-->
+                          <a href="/physician?id=<%= i[0]%>">Dr. <%= i[1].capitalize %> <%= i[2].capitalize %></a>
+                  			</td>
+                  			<td>
+                  				<%= number_to_currency(i[3].to_f) %>
+                  			</td>
+                        <td>
+                            <%= i[4].split.map(&:capitalize).join(' ') %>
+                        </td>
+                        <td>
+                            <%= i[5].split.map(&:capitalize).join(' ') %>
+                        </td>
+                  			<td>
+                  				<a target="_blank" href="https://www.google.com/?gws_rd=ssl#q=Dr.+<%= i[1].capitalize %>+<%= i[2].capitalize %>+<%= i[4].split.map(&:capitalize).join(' ') %>+<%= i[5].split.map(&:capitalize).join(' ') %>"
+                  					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                  				</a>
+                  			</td>
                   		<% if index + 1 > 99 %>
                   			<% break %>
                   		<% end %>

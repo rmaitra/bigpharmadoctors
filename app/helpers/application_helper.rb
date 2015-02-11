@@ -15,7 +15,15 @@ module ApplicationHelper
             array.push(row)
         end
         array = array.sort {|a,b| b[3].to_i <=> a[3].to_i}
-        return array
+        response = Array.new
+        array.each_with_index do |i,index|
+            i.push(index + 1)
+            response.push(i)
+            if (index + 1) == 100
+                break
+            end
+        end
+        return response
     end
 
     def get_payments_by_user(id)
@@ -57,6 +65,24 @@ module ApplicationHelper
                 return index + 1
             end
         end
+    end 
+    
+    def sortable(column, title = nil)  
+        title ||= column.titleize  
+        direction = (column == params[:sort] && params[:direction] == "asc") ? "desc" : "asc"  
+        link_to title, :sort => column, :direction => direction  
+    end 
+
+    def sorting(array, column)
+        if column == "City"
+            column = 5
+        end
+        if sort_direction == "asc"
+            array = array.sort {|a,b| b[column.to_i] <=> a[column.to_i]}
+        else
+            array = array.sort {|a,b| a[column.to_i] <=> b[column.to_i]}
+        end
+        return array
     end
 
 end

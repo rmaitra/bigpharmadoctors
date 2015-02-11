@@ -5,9 +5,21 @@ class HomeController < ApplicationController
     def index
         @payments = get_payments
         
+
+        @top_ten = Array.new
+        @payments.each_with_index do |i, index|
+            @top_ten.push(i)
+            if index + 1 == 10
+                break
+            end
+        end
+
         @sum = 0
         @payments.each_with_index do |i,index|
             @sum = @sum + i[3].to_f
+        end
+        if params[:sort]
+            @payments = sorting(@payments, params[:sort])
         end
     end
 
@@ -23,6 +35,7 @@ class HomeController < ApplicationController
         @state = @doc[0]['recipient_state']
         @zip = @doc[0]['recipient_zip_code']
         @sum = sum_pay(@doc)
+
     end
 
     def posting_board
@@ -39,5 +52,9 @@ class HomeController < ApplicationController
     
         def authenticate_user!
             redirect_to root_path, notice: "You must login" unless user_signed_in?
+        end
+
+        def sort_direction
+            %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
         end
 end
