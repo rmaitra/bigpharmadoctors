@@ -151,6 +151,7 @@
             			<th>Name (<i>Click to view Individual Transactions!</i>)</th>
             			<th>Total Money Received from Big Pharma</th>
                   <th>Business Address</th>
+                  <th>City</th>
             			<th>Google them!</th>
             		</tr>
             	</thead> 
@@ -161,13 +162,17 @@
             				<%= index + 1 %>
             			</td>
             			<td>
-            				<a href="https://openpaymentsdata.cms.gov/physician/<%= i[0]%>">Dr. <%= i[1].capitalize %> <%= i[2].capitalize %></a>
+            				<!--<a href="https://openpaymentsdata.cms.gov/physician/<%= i[0]%>">Dr. <%= i[1].capitalize %> <%= i[2].capitalize %></a>-->
+                    <a href="/physician?id=<%= i[0]%>">Dr. <%= i[1].capitalize %> <%= i[2].capitalize %></a>
             			</td>
             			<td>
             				<%= number_to_currency(i[3].to_f) %>
             			</td>
                   <td>
-                      <%= i[4].split.map(&:capitalize).join(' ') %>, <%= i[5].split.map(&:capitalize).join(' ') %>
+                      <%= i[4].split.map(&:capitalize).join(' ') %>
+                  </td>
+                  <td>
+                      <%= i[5].split.map(&:capitalize).join(' ') %>
                   </td>
             			<td>
             				<a target="_blank" href="https://www.google.com/?gws_rd=ssl#q=Dr.+<%= i[1].capitalize %>+<%= i[2].capitalize %>+<%= i[4].split.map(&:capitalize).join(' ') %>+<%= i[5].split.map(&:capitalize).join(' ') %>"

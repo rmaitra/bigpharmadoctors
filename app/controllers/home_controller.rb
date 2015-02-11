@@ -4,10 +4,25 @@ class HomeController < ApplicationController
     
     def index
         @payments = get_payments
+        
         @sum = 0
-        @payments.each do |i|
+        @payments.each_with_index do |i,index|
             @sum = @sum + i[3].to_f
         end
+    end
+
+    def physician
+        @doc = get_payments_by_user(params[:id])
+        @rank = find_rank(params[:id])
+        @name = @doc[0]['physician_first_name'].capitalize + " " +  @doc[0]['physician_last_name'].capitalize
+        @address = @doc[0]['recipient_primary_business_street_address_line1'].split.map(&:capitalize).join(' ')
+        if @doc[0]['recipient_primary_business_street_address_line2'] != nil
+            @address + " " + @doc[0]['recipient_primary_business_street_address_line2'].split.map(&:capitalize).join(' ')
+        end
+        @city = @doc[0]['recipient_city']
+        @state = @doc[0]['recipient_state']
+        @zip = @doc[0]['recipient_zip_code']
+        @sum = sum_pay(@doc)
     end
 
     def posting_board

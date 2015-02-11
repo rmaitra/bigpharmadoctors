@@ -31,6 +31,9 @@ App::Application.routes.draw do
   root to: "home#index"
   get '/users/users_index(.:format)'
   match '/users_index',  to: 'users#users_index',            via: 'get'
+
+  get '/home/physician(.:format)'
+  match '/physician',  to: 'home#physician',            via: 'get'
   
   get '/posts/posts_index(.:format)'
   match '/posts_index',  to: 'posts#posts_index',            via: 'get'
